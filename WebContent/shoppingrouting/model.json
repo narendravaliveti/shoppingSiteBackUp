@@ -1,0 +1,100 @@
+{
+  "signedup": [
+    {
+      "fname": "Narendra",
+      "lname": "Valiveti",
+      "dob": "4/11/18",
+      "email": "narendra1@gmail.com",
+      "mobile": "9999",
+      "password": "9999"
+    },
+    {
+      "fname": "Nani",
+      "lname": "Valiveti",
+      "dob": "4/11/18",
+      "email": "narendra2@gmail.com",
+      "mobile": "8888",
+      "password": "8888"
+    }
+  ],
+  "signupform": {
+    "fname": "",
+    "lname": "",
+    "dob": "",
+    "email": "",
+    "mobile": "",
+    "password": ""
+  },
+  "loggedin": {
+    "fname": "",
+    "lname": "",
+    "dob": "",
+    "email": "",
+    "mobile": "",
+    "password": ""
+  },
+  "loginform": {
+    "username": "",
+    "password": ""
+  },
+  "profileList": {
+    "fname": "",
+    "lname": "",
+    "dob": "",
+    "email": "",
+    "mobile": ""
+  },
+  "bindpath": "",
+  "cart": [
+    {
+      "mobile": "9999",
+      "email": "narendra1@gmail.com",
+      "products": []
+    },
+    {
+      "mobile": "8888",
+      "email": "narendra2@gmail.com",
+      "products": []
+    }
+  ],
+  "img": {
+    "category": [
+      {
+        "id": "Laptops",
+        "loc": "shoppingrouting/images/laptop.jpg",
+        "items": [
+          {
+            "id": "HP Laptop",
+            "loc": "shoppingrouting/images/laptop1.jpg",
+            "model": "Pavilion G6",
+            "price": "45000"
+          },
+          {
+            "id": "Dell Laptop",
+            "loc": "shoppingrouting/images/laptop2.jpg",
+            "model": "Inspiron 5559",
+            "price": "45000"
+          }
+        ]
+      },
+      {
+        "id": "Mobiles",
+        "loc": "shoppingrouting/images/mobile.jpg",
+        "items": [
+          {
+            "id": "Oppo",
+            "loc": "shoppingrouting/images/mobile1.jpg",
+            "model": "F3 Plus",
+            "price": "17000"
+          },
+          {
+            "id": "Samsung",
+            "loc": "shoppingrouting/images/mobile2.jpg",
+            "model": "J7 Duo",
+            "price": "13000"
+          }
+        ]
+      }
+    ]
+  }
+}
