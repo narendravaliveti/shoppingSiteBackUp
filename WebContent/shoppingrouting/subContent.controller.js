@@ -46,20 +46,21 @@ sap.ui.controller("routing.shoppingrouting.subContent", {
         this.getView().subCntFBox.setVisible(true);
     },
     subCntBackEvt() {
-        this.getOwnerComponent().getRouter().navTo("main");
+        let oSampModel = this.getOwnerComponent().getModel("userModel");
+        let userMob = oSampModel.getProperty("/loggedin").mobile;
+        this.getOwnerComponent().getRouter().navTo("main",{userId: userMob});
     },
     addCrtBtn: function (oEvnt) {
         let crtData = oEvnt.getSource().getParent().getBindingContext("userModel").getObject();
         let oSampModel = this.getOwnerComponent().getModel("userModel");
         let lUser = oSampModel.getProperty("/loggedin");
         let cart = oSampModel.getProperty("/cart");
-        debugger
         // for (let i = 0; i < cart.length; i++) {
-        //     debugger
+        //
         //     if (lUser.mobile !== "" && lUser.mobile === cart[i].mobile) {
-        //         debugger
+        //
         //         cart[i].products.push(JSON.parse(JSON.stringify(crtData)));
-        //         debugger
+        //
         //     }
         // }
         cart.forEach((oCrt)=>{

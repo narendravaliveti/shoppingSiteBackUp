@@ -6,14 +6,15 @@ sap.ui.controller("routing.shoppingrouting.mainContent", {
      * @memberOf routing.shoppingrouting.mainContent
      */
     onInit: function () {
-        let oRouter = this.getOwnerComponent().getRouter();
-        oRouter.attachRouteMatched("main/{userId}", (oEvnt) => {
-            if (oEvnt.getParameter("name") === "main") {
-
-            }
-        });
+        // let oRouter = this.getOwnerComponent().getRouter();
+        // oRouter.attachRouteMatched("main/{userId}", (oEvnt) => {
+        //     if (oEvnt.getParameter("name") === "main") {
+        //
+        //     }
+        // });
     },
     crtBtnEvt: function () {
+        let oSampModel = this.getOwnerComponent().getModel("userModel");
         let oRoute = this.getOwnerComponent().getRouter();
         oRoute.navTo("cart");
     },

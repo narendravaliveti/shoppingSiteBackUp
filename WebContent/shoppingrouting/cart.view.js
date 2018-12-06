@@ -102,7 +102,6 @@ sap.ui.jsview("routing.shoppingrouting.cart", {
             content: {
                 path: "userModel>products",
                 factory: (sIdx, oContext) => {
-                    debugger
                     return new sap.m.FlexBox({
                         height: "380px",
                         width: "300px",

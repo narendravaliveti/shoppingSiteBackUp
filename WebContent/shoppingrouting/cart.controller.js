@@ -48,6 +48,7 @@ sap.ui.controller("routing.shoppingrouting.cart", {
         this.getView().crtCntFBox.setVisible(true);
     },
     crtCntBackEvt() {
+        let oSampModel = this.getOwnerComponent().getModel("userModel");
         let userMob = oSampModel.getProperty("/loggedin").mobile;
         this.getOwnerComponent().getRouter().navTo("main",{userId: userMob});
     },

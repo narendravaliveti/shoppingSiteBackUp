@@ -15,7 +15,6 @@ sap.ui.jsview("routing.shoppingrouting.mainContent", {
 	*/ 
 	createContent : function(oController) {
         let oView = this;
-        this.logIn();
         this.menuBtnProfile = new sap.m.MenuItem({
             text: "Profile",
             press: [oController.profileEvt, oController]
