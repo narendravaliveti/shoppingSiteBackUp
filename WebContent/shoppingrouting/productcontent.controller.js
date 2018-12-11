@@ -1,32 +1,32 @@
-sap.ui.controller("routing.shoppingrouting.subContent", {
+sap.ui.controller("routing.shoppingrouting.productcontent", {
 
     /**
      * Called when a controller is instantiated and its View controls (if available) are already created.
      * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-     * @memberOf routing.shoppingrouting.subContent
+     * @memberOf routing.shoppingrouting.productcontent
      */
     onInit: function () {
         let oRouter = this.getOwnerComponent().getRouter();
-        oRouter.attachRouteMatched("sub", (oEvnt) => {
-            if (oEvnt.getParameter("name") === "sub") {
-                let bindPath = this.getOwnerComponent().getModel("userModel").getProperty("/subcntbindpath");
+        oRouter.attachRouteMatched("pro", (oEvnt) => {
+            if (oEvnt.getParameter("name") === "pro") {
+                let bindPath = this.getOwnerComponent().getModel("userModel").getProperty("/procntbindpath");
                 if (bindPath) {
-                    this.getView().oSubCntFBox.bindElement(bindPath);
+                    this.getView().oProHeader.bindElement(bindPath);
                 }
             }
             this.getView().oProfileFBox.setVisible(false);
-            this.getView().oSubCntFBox.setVisible(true);
+            this.getView().oProHeader.setVisible(true);
         });
 
     },
     oCrtBtnEvt() {
         let oRoute = this.getOwnerComponent().getRouter();
-         oRoute.navTo("cart");
+        oRoute.navTo("cart");
     },
     oProfileEvt() {
         this.getView().oMenuBtnProfile.setVisible(false);
         this.getView().oMenuBtnLogOut.setVisible(false);
-        this.getView().oSubCntFBox.setVisible(false);
+        this.getView().oProHeader.setVisible(false);
         this.getView().oProfileFBox.setVisible(true);
     },
     oLogOutEvt() {
@@ -47,18 +47,12 @@ sap.ui.controller("routing.shoppingrouting.subContent", {
         this.getView().oMenuBtnProfile.setVisible(true);
         this.getView().oMenuBtnLogOut.setVisible(true);
         this.getView().oProfileFBox.setVisible(false);
-        this.getView().oSubCntFBox.setVisible(true);
+        this.getView().oProHeader.setVisible(true);
     },
-    oSubCntBackEvt() {
+    oProCntBackEvt() {
         let oSampModel = this.getOwnerComponent().getModel("userModel");
         let userId = oSampModel.getProperty("/loggedin").userid;
-        this.getOwnerComponent().getRouter().navTo("main",{userId: userId});
-    },
-    oProImgEvt(oEvnt) {
-        let oSampModel = this.getOwnerComponent().getModel("userModel");
-        let bindpath = oEvnt.getSource().getBindingContext("userModel").getPath();
-        oSampModel.setProperty("/procntbindpath",`userModel>${bindpath}`);
-        this.getOwnerComponent().getRouter().navTo("pro");
+        this.getOwnerComponent().getRouter().navTo("sub");
     },
     oAddCrtBtn(oEvnt) {
         let oCrtData = oEvnt.getSource().getParent().getBindingContext("userModel").getObject();
@@ -73,26 +67,27 @@ sap.ui.controller("routing.shoppingrouting.subContent", {
         //
         //     }
         // }
-        arCart.forEach((oCrt)=>{
-            if(oLUser.userid !== "" && oLUser.userid === oCrt.userid){
+        arCart.forEach((oCrt) => {
+            if (oLUser.userid !== "" && oLUser.userid === oCrt.userid) {
                 oCrt.products.push(JSON.parse(JSON.stringify(oCrtData)));
             }
         });
         oSampModel.setProperty("/cart", arCart);
     },
+
     /**
      * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
      * (NOT before the first rendering! onInit() is used for that one!).
-     * @memberOf routing.shoppingrouting.subContent
+     * @memberOf routing.shoppingrouting.productcontent
      */
-    onBeforeRendering: function () {
-
-    },
+//	onBeforeRendering: function() {
+//
+//	},
 
     /**
      * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
      * This hook is the same one that SAPUI5 controls get after being rendered.
-     * @memberOf routing.shoppingrouting.subContent
+     * @memberOf routing.shoppingrouting.productcontent
      */
 //	onAfterRendering: function() {
 //
@@ -100,7 +95,7 @@ sap.ui.controller("routing.shoppingrouting.subContent", {
 
     /**
      * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-     * @memberOf routing.shoppingrouting.subContent
+     * @memberOf routing.shoppingrouting.productcontent
      */
 //	onExit: function() {
 //

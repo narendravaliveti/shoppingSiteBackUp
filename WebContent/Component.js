@@ -33,6 +33,11 @@ sap.ui.core.UIComponent.extend("routing.Component", {
                     "pattern": "cart",
                     "name": "cart",
                     "target": "cartTarget"
+                },
+                {
+                    "pattern": "pro",
+                    "name": "pro",
+                    "target": "proTarget"
                 }
             ],
             "targets": {
@@ -47,6 +52,9 @@ sap.ui.core.UIComponent.extend("routing.Component", {
                 },
                 "cartTarget": {
                     "viewName": "cart"
+                },
+                "proTarget": {
+                    "viewName": "productcontent"
                 }
             }
         }

@@ -13,39 +13,72 @@ sap.ui.controller("routing.shoppingrouting.mainContent", {
         //     }
         // });
     },
-    crtBtnEvt: function () {
+    oCrtBtnEvt() {
         let oSampModel = this.getOwnerComponent().getModel("userModel");
         let oRoute = this.getOwnerComponent().getRouter();
+        this.getView().oProfileFBox.setVisible(false);
+        this.getView().oMainCntFBox.setVisible(true);
         oRoute.navTo("cart");
     },
-    profileEvt() {
-        this.getView().menuBtnProfile.setVisible(false);
-        this.getView().menuBtnLogOut.setVisible(false);
-        this.getView().mainCntFBox.setVisible(false);
-        this.getView().profileFBox.setVisible(true);
+    oProfileEvt() {
+        this.getView().oMenuBtnProfile.setVisible(false);
+        this.getView().oMenuBtnLogOut.setVisible(false);
+        this.getView().oMainCntFBox.setVisible(false);
+        this.getView().oProfileFBox.setVisible(true);
     },
-    logOutEvt() {
+    oLogOutEvt() {
         let oSampModel = this.getOwnerComponent().getModel("userModel");
-        let lUser = oSampModel.getProperty("/loggedin");
-        lUser.fname = "";
-        lUser.lname = "";
-        lUser.dob = "";
-        lUser.email = "";
-        lUser.mobile = "";
-        lUser.password = "";
-        this.profileBackEvt();
-        oSampModel.setProperty("/loggedin", lUser);
+        let oLUser = oSampModel.getProperty("/loggedin");
+        oLUser.fname = "";
+        oLUser.lname = "";
+        oLUser.gender = "";
+        oLUser.dob = "";
+        oLUser.email = "";
+        oLUser.mobile = "";
+        oLUser.userid = "";
+        oLUser.password = "";
+        this.oProfileBackEvt();
+        oSampModel.setProperty("/loggedin", oLUser);
+        this.getView().oProfileFBox.setVisible(false);
+        this.getView().oMainCntFBox.setVisible(true);
         this.getOwnerComponent().getRouter().navTo("logIn");
     },
-    profileBackEvt() {
-        this.getView().menuBtnProfile.setVisible(true);
-        this.getView().menuBtnLogOut.setVisible(true);
-        this.getView().profileFBox.setVisible(false);
-        this.getView().mainCntFBox.setVisible(true);
+    oProfileBackEvt() {
+        this.getView().oMenuBtnProfile.setVisible(true);
+        this.getView().oMenuBtnLogOut.setVisible(true);
+        this.getView().oProfileFBox.setVisible(false);
+        this.getView().oMainCntFBox.setVisible(true);
     },
-    mainTileEvt(oEvnt) {
+    oMainTileEvt(oEvnt) {
         let subCntTilePath = oEvnt.getSource().getBinding("header").getContext().getPath();
-        this.getOwnerComponent().getModel("userModel").setProperty("/bindpath", `userModel>${subCntTilePath}`);
+        let oSampModel = this.getOwnerComponent().getModel("userModel");
+        let arSUser = oSampModel.getProperty("/signedup");
+        let oLUser = oSampModel.getProperty("/loggedin");
+        for (let i = 0; i < arSUser.length; i++) {
+            let path = subCntTilePath+"/items";
+            if (oLUser.password === arSUser[i].password && oLUser.userid === arSUser[i].userid) {
+                // if(arSUser[i].role === "admin") {
+                //     var arCtgry = this.getOwnerComponent().getModel("userModel").getProperty(path);
+                //     arCtgry.forEach((oCnt)=>{
+                //         oCnt.switchvisible = true;
+                //         oCnt.prdtstatus = true});
+                //     this.getOwnerComponent().getModel("userModel").setProperty(path,arCtgry);
+                // }else{
+                //     var arCtgry = this.getOwnerComponent().getModel("userModel").getProperty(path);
+                //     arCtgry.forEach((oCnt)=>{
+                //         oCnt.switchvisible = false;
+                //         if(oCnt.switchstatus === true) {
+                //             oCnt.prdtstatus = true
+                //         }else{
+                //             oCnt.prdtstatus = false
+                //         }
+                //     });
+                //     this.getOwnerComponent().getModel("userModel").setProperty(path,arCtgry);
+                // }
+                oLUser = JSON.parse(JSON.stringify(arSUser[i]));
+            }
+        }
+        this.getOwnerComponent().getModel("userModel").setProperty("/subcntbindpath", `userModel>${subCntTilePath}`);
         // this.getView().subCntFBox.bindElement(`userModel>${subCntTilePath}`);
         this.getOwnerComponent().getRouter().navTo("sub");
     },

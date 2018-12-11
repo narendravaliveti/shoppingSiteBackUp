@@ -14,7 +14,7 @@ sap.ui.jsview("routing.shoppingrouting.confirmation", {
      */
     createContent: function (oController) {
         let oView = this;
-        this.logInTile = new sap.m.GenericTile({
+        this.oLogInTile = new sap.m.GenericTile({
             header: "LogIn",
             backgroundImage: "shoppingrouting/images/tile.jpg",
             tileContent: new sap.m.TileContent({
@@ -24,9 +24,9 @@ sap.ui.jsview("routing.shoppingrouting.confirmation", {
                     })
                 ]
             }),
-            press: [oController.logInTileEvt, oController]
+            press: [oController.oLogInTileEvt, oController]
         }).addStyleClass("sapUiSmallMarginEnd");
-        this.signUpTile = new sap.m.GenericTile({
+        this.oSignUpTile = new sap.m.GenericTile({
             header: "SignUp",
             backgroundImage: "shoppingrouting/images/tile.jpg",
             tileContent: new sap.m.TileContent({
@@ -36,9 +36,9 @@ sap.ui.jsview("routing.shoppingrouting.confirmation", {
                     })
                 ]
             }),
-            press: [oController.signUpTileEvt, oController]
+            press: [oController.oSignUpTileEvt, oController]
         });
-        this.logInForm = new sap.ui.layout.form.Form({
+        this.oLogInForm = new sap.ui.layout.form.Form({
             title: "LogIn",
             width: "100%",
             layout: new sap.ui.layout.form.FormLayout({}),
@@ -46,9 +46,9 @@ sap.ui.jsview("routing.shoppingrouting.confirmation", {
                 formElements: new sap.ui.layout.form.FormElement({
                     fields: [
                         new sap.m.Input({
-                            placeholder: "Mobile/Email",
+                            placeholder: "UserId",
                             textAlign: sap.ui.core.TextAlign.Center,
-                            value: "{userModel>/loginform/username}"
+                            value: "{userModel>/loginform/userid}"
                         }),
                         new sap.m.Input({
                             placeholder: "Password",
@@ -60,19 +60,19 @@ sap.ui.jsview("routing.shoppingrouting.confirmation", {
                             text: "Submit",
                             width: "40%",
                             type: sap.m.ButtonType.Accept,
-                            press: [oController.logInSbmtEvt, oController]
+                            press: [oController.oLogInSbmtEvt, oController]
                         }),
                         new sap.m.Button({
                             text: "Cancel",
                             width: "40%",
                             type: sap.m.ButtonType.Reject,
-                            press: [oController.logInCnclEvt, oController]
+                            press: [oController.oLogInCnclEvt, oController]
                         })
                     ]
                 })
             })
         }).addStyleClass("textAlignCenter");
-        this.signUpForm = new sap.ui.layout.form.Form({
+        this.oSignUpForm = new sap.ui.layout.form.Form({
             title: "SignUp",
             width: "100%",
             layout: new sap.ui.layout.form.FormLayout({}),
@@ -88,6 +88,11 @@ sap.ui.jsview("routing.shoppingrouting.confirmation", {
                             placeholder: "LastName",
                             textAlign: sap.ui.core.TextAlign.Center,
                             value: "{userModel>/signupform/lname}",
+                        }),
+                        new sap.m.Input({
+                            placeholder: "Gender",
+                            textAlign: sap.ui.core.TextAlign.Center,
+                            value: "{userModel>/signupform/gender}",
                         }),
                         new sap.m.DatePicker({
                             placeholder: "Date Of Birth",
@@ -106,6 +111,11 @@ sap.ui.jsview("routing.shoppingrouting.confirmation", {
                             type: sap.m.InputType.Number
                         }),
                         new sap.m.Input({
+                            placeholder: "UserId",
+                            textAlign: sap.ui.core.TextAlign.Center,
+                            value: "{userModel>/signupform/userid}",
+                        }),
+                        new sap.m.Input({
                             placeholder: "Password",
                             textAlign: sap.ui.core.TextAlign.Center,
                             value: "{userModel>/signupform/password}",
@@ -115,45 +125,45 @@ sap.ui.jsview("routing.shoppingrouting.confirmation", {
                             text: "Submit",
                             width: "40%",
                             type: sap.m.ButtonType.Accept,
-                            press: [oController.signUpSbmtEvt, oController]
+                            press: [oController.oSignUpSbmtEvt, oController]
                         }),
                         new sap.m.Button({
                             text: "Cancel",
                             width: "40%",
                             type: sap.m.ButtonType.Reject,
-                            press: [oController.signUpCnclEvt, oController]
+                            press: [oController.oSignUpCnclEvt, oController]
                         })
                     ]
                 })
             })
         }).addStyleClass("textAlignCenter");
-        this.logInGrid = new sap.ui.layout.Grid({
+        this.oLogInGrid = new sap.ui.layout.Grid({
             visible: false,
             defaultSpan: "L12 M12 S12",
             position: sap.ui.layout.GridPosition.Center,
             width: "80%",
             content: [
-                this.logInForm,
+                this.oLogInForm,
             ]
         });
-        this.signUpGrid = new sap.ui.layout.Grid({
+        this.oSignUpGrid = new sap.ui.layout.Grid({
             visible: false,
             defaultSpan: "L12 M12 S12",
             position: sap.ui.layout.GridPosition.Center,
             width: "40%",
             content: [
-                this.signUpForm,
+                this.oSignUpForm,
             ]
         });
-        this.logAndSignFBox = new sap.m.FlexBox({
+        this.oLogAndSignFBox = new sap.m.FlexBox({
             justifyContent: sap.m.FlexJustifyContent.Center,
             alignItems: sap.m.FlexAlignItems.Center,
             fitContainer: true,
             items: [
-                this.logInTile,
-                this.signUpTile,
-                this.logInGrid,
-                this.signUpGrid
+                this.oLogInTile,
+                this.oSignUpTile,
+                this.oLogInGrid,
+                this.oSignUpGrid
             ]
         });
         return new sap.m.Page({
@@ -163,7 +173,7 @@ sap.ui.jsview("routing.shoppingrouting.confirmation", {
                 })],
             }),
             content: [
-                this.logAndSignFBox
+                this.oLogAndSignFBox
             ],
         });
     }

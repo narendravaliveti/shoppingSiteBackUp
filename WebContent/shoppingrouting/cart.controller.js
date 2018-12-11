@@ -10,47 +10,51 @@ sap.ui.controller("routing.shoppingrouting.cart", {
     oRouter.attachRouteMatched("cart", (oEvnt) => {
         if (oEvnt.getParameter("name") === "cart") {
             let oSampModel = this.getOwnerComponent().getModel("userModel");
-            let cart = oSampModel.getProperty("/cart");
-            let lUser = oSampModel.getProperty("/loggedin");
-            for(let i=0;i<cart.length;i++){
-                if(lUser.mobile !== "" && lUser.mobile === cart[i].mobile){
+            let arCart = oSampModel.getProperty("/cart");
+            let oLUser = oSampModel.getProperty("/loggedin");
+            for(let i=0;i<arCart.length;i++){
+                if(oLUser.userid !== "" && oLUser.userid === arCart[i].userid){
                     let bindpath = "userModel>/cart/"+i;
                     if (bindpath) {
-                        this.getView().crtCntFBox.bindElement(bindpath);
+                        this.getView().oCrtCntFBox.bindElement(bindpath);
                     }
                 }
             }
+            this.getView().oProfileFBox.setVisible(false);
+            this.getView().oCrtCntFBox.setVisible(true);
         }
     });
 	},
-    profileEvt() {
-        this.getView().menuBtnProfile.setVisible(false);
-        this.getView().menuBtnLogOut.setVisible(false);
-        this.getView().crtCntFBox.setVisible(false);
-        this.getView().profileFBox.setVisible(true);
+    oProfileEvt() {
+        this.getView().oMenuBtnProfile.setVisible(false);
+        this.getView().oMenuBtnLogOut.setVisible(false);
+        this.getView().oCrtCntFBox.setVisible(false);
+        this.getView().oProfileFBox.setVisible(true);
     },
-    logOutEvt() {
+    oLogOutEvt() {
         let oSampModel = this.getOwnerComponent().getModel("userModel");
-        let lUser = oSampModel.getProperty("/loggedin");
-        lUser.fname = "";
-        lUser.lname = "";
-        lUser.dob = "";
-        lUser.email = "";
-        lUser.mobile = "";
-        lUser.password = "";
-        oSampModel.setProperty("/loggedin", lUser);
+        let oLUser = oSampModel.getProperty("/loggedin");
+        oLUser.fname = "";
+        oLUser.lname = "";
+        oLUser.gender = "";
+        oLUser.dob = "";
+        oLUser.email = "";
+        oLUser.mobile = "";
+        oLUser.userid = "";
+        oLUser.password = "";
+        oSampModel.setProperty("/loggedin", oLUser);
         this.getOwnerComponent().getRouter().navTo("logIn");
     },
-    profileBackEvt() {
-        this.getView().menuBtnProfile.setVisible(true);
-        this.getView().menuBtnLogOut.setVisible(true);
-        this.getView().profileFBox.setVisible(false);
-        this.getView().crtCntFBox.setVisible(true);
+    oProfileBackEvt() {
+        this.getView().oMenuBtnProfile.setVisible(true);
+        this.getView().oMenuBtnLogOut.setVisible(true);
+        this.getView().oProfileFBox.setVisible(false);
+        this.getView().oCrtCntFBox.setVisible(true);
     },
-    crtCntBackEvt() {
+    oCrtCntBackEvt() {
         let oSampModel = this.getOwnerComponent().getModel("userModel");
-        let userMob = oSampModel.getProperty("/loggedin").mobile;
-        this.getOwnerComponent().getRouter().navTo("main",{userId: userMob});
+        let userId = oSampModel.getProperty("/loggedin").userid;
+        this.getOwnerComponent().getRouter().navTo("main",{userId: userId});
     },
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

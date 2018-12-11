@@ -1,20 +1,20 @@
-sap.ui.jsview("routing.shoppingrouting.cart", {
+sap.ui.jsview("routing.shoppingrouting.productcontent", {
 
-    /** Specifies the Controller belonging to this View.
-     * In the case that it is not implemented, or that "null" is returned, this View does not have a Controller.
-     * @memberOf routing.shoppingrouting.cart
-     */
-    getControllerName: function () {
-        return "routing.shoppingrouting.cart";
-    },
+	/** Specifies the Controller belonging to this View. 
+	* In the case that it is not implemented, or that "null" is returned, this View does not have a Controller.
+	* @memberOf routing.shoppingrouting.productcontent
+	*/ 
+	getControllerName : function() {
+		return "routing.shoppingrouting.productcontent";
+	},
 
-    /** Is initially called once after the Controller has been instantiated. It is the place where the UI is constructed.
-     * Since the Controller is given to this method, its event handlers can be attached right away.
-     * @memberOf routing.shoppingrouting.cart
-     */
+	/** Is initially called once after the Controller has been instantiated. It is the place where the UI is constructed. 
+	* Since the Controller is given to this method, its event handlers can be attached right away. 
+	* @memberOf routing.shoppingrouting.productcontent
+	*/
     createContent: function (oController) {
         let oView = this;
-        oView.oNFormat = sap.ui.core.format.NumberFormat.getCurrencyInstance({maxFractionDigits: 2});
+        this.oNFormat = sap.ui.core.format.NumberFormat.getCurrencyInstance({maxFractionDigits: 2});
         this.oMenuBtnProfile = new sap.m.MenuItem({
             text: "Profile",
             press: [oController.oProfileEvt, oController]
@@ -47,10 +47,10 @@ sap.ui.jsview("routing.shoppingrouting.cart", {
             type: sap.m.ButtonType.Back,
             press: [oController.oProfileBackEvt, oController]
         });
-        this.oCrtCntBackBtn = new sap.m.Button({
+        this.oProCntBackBtn = new sap.m.Button({
             text: "Back",
             type: sap.m.ButtonType.Back,
-            press: [oController.oCrtCntBackEvt, oController]
+            press: [oController.oProCntBackEvt, oController]
         });
         this.oProfileList = new sap.m.List({
             headerText: "Profile",
@@ -98,60 +98,53 @@ sap.ui.jsview("routing.shoppingrouting.cart", {
                 this.oProfileGrid
             ]
         });
-        this.oCrtCntFBox = new sap.ui.layout.Grid({
-            content: {
-                path: "userModel>products",
-                factory: (sIdx, oContext) => {
-                    return new sap.m.FlexBox({
-                        height: "380px",
-                        width: "300px",
-                        backgroundDesign: sap.m.BackgroundDesign.Translucent,
-                        alignItems: sap.m.FlexAlignItems.Center,
-                        direction: sap.m.FlexDirection.Column,
-                        visible: {
-                            path: "userModel>switchstatus",
-                            formatter: (switchState) => {
-                                return switchState;
-                            }
-                        },
-                        items: [
-                            new sap.m.Image({
-                                height: "200px",
-                                width: "{userModel>width}",
-                                src: "{userModel>src}"
-                            }),
-                            new sap.m.Title({
-                                text: "{userModel>title}"
-                            }),
-                            new sap.m.DisplayListItem({
-                                label: "Model",
-                                value: "{userModel>model}"
-                            }),
-                            new sap.m.DisplayListItem({
-                                label: "Price",
-                                value: {
-                                    path: "userModel>price",
-                                    formatter: (sValue) => {
-                                        let val = oView.oNFormat.format(sValue, oView.oNFormat.oLocaleData.getCurrencySymbol("INR"));
-                                        return val;
-                                    }
-                                }
-                            })
-                        ]
-                    })
+        this.oCartBtn = new sap.m.Button({
+            icon: "sap-icon://cart",
+            press: [oController.oCrtBtnEvt, oController]
+        });
+        this.oProHeader = new sap.m.ObjectHeader({
+            title: "{userModel>title}",
+            backgroundDesign: sap.m.BackgroundDesign.Solid,
+            responsive: true,
+            number: {
+                path: "userModel>price",
+                formatter: (sValue) => {
+                    let val = oView.oNFormat.format(sValue, oView.oNFormat.oLocaleData.getCurrencySymbol("INR"));
+                    return val;
                 }
-            }
-        }).addStyleClass("sapUiSmallMargin");
+            },
+            intro: "{userModel>description}",
+            attributes: [
+                new sap.m.ObjectAttribute({
+                    title: "Model",
+                    text: "{userModel>model}"
+                }),
+                new sap.m.ObjectAttribute({
+                    title: "Manufacturer",
+                    text: "{userModel>owner}"
+                })
+            ],
+            headerContainer: new sap.m.HeaderContainer({
+                orientation: sap.ui.core.Orientation.Vertical,
+                content: [
+                    new sap.m.Image({
+                        src: "{userModel>src}",
+                    })
+                ]
+            })
+        });
         return new sap.m.Page({
-            title: "Cart",
+            customHeader: new sap.m.Bar({
+                contentMiddle: [new sap.m.Label({
+                    text: "My App"
+                })],
+                contentRight: [
+                    this.oCartBtn
+                ]
+            }),
             subHeader: new sap.m.Bar({
                 contentLeft: [
-                    this.oCrtCntBackBtn
-                ],
-                contentMiddle: [
-                    new sap.m.Title({
-                        text: "{userModel>/loggedin/fname} {userModel>/loggedin/lname}"
-                    })
+                    this.oProCntBackBtn
                 ],
                 contentRight: [
                     this.oMenuBtn
@@ -159,9 +152,9 @@ sap.ui.jsview("routing.shoppingrouting.cart", {
             }),
             content: [
                 this.oProfileFBox,
-                this.oCrtCntFBox
+                this.oProHeader
             ]
         });
-    }
+	}
 
 });

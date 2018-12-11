@@ -8,90 +8,105 @@ sap.ui.controller("routing.shoppingrouting.confirmation", {
 //	onInit: function() {
 //
 //	},
-    logInTileEvt() {
-        this.getView().logInTile.setVisible(false);
-        this.getView().signUpTile.setVisible(false);
-        this.getView().logInGrid.setVisible(true);
+    oLogInTileEvt() {
+        this.getView().oLogInTile.setVisible(false);
+        this.getView().oSignUpTile.setVisible(false);
+        this.getView().oLogInGrid.setVisible(true);
     },
-    signUpTileEvt() {
-        this.getView().logInTile.setVisible(false);
-        this.getView().signUpTile.setVisible(false);
-        this.getView().signUpGrid.setVisible(true);
+    oSignUpTileEvt() {
+        this.getView().oLogInTile.setVisible(false);
+        this.getView().oSignUpTile.setVisible(false);
+        this.getView().oSignUpGrid.setVisible(true);
     },
-    logInSbmtEvt() {
+    oLogInSbmtEvt() {
         let oSampModel = this.getOwnerComponent().getModel("userModel");
-        let lForm = oSampModel.getProperty("/loginform");
-        let sUser = oSampModel.getProperty("/signedup");
-        let lUser = oSampModel.getProperty("/loggedin");
-        let pUser = oSampModel.getProperty("/profileList");
-        for (let i = 0; i < sUser.length; i++) {
-            if (lForm.password === sUser[i].password && (lForm.username === sUser[i].mobile || sUser[i].email === lForm.username)) {
-                lUser = JSON.parse(JSON.stringify(sUser[i]));
-                lForm.username = "";
-                lForm.password = "";
-                pUser.fname = sUser[i].fname;
-                pUser.lname = sUser[i].lname;
-                pUser.dob = sUser[i].dob;
-                pUser.email = sUser[i].email;
-                pUser.mobile = sUser[i].mobile;
+        let oLForm = oSampModel.getProperty("/loginform");
+        let arSUser = oSampModel.getProperty("/signedup");
+        let oLUser = oSampModel.getProperty("/loggedin");
+        for (let i = 0; i < arSUser.length; i++) {
+             if (oLForm.password === arSUser[i].password && oLForm.userid === arSUser[i].userid) {
+        //         if(arSUser[i].role === "admin") {
+        //             var arCtgry = this.getOwnerComponent().getModel("userModel").getProperty("/img/category");
+        //             arCtgry.forEach((oCnt)=>{
+        //                 oCnt.switchvisible = true;
+        //                 oCnt.ctgrystatus = true});
+        //             this.getOwnerComponent().getModel("userModel").setProperty("/img/category",arCtgry);
+        //         }else{
+        //             var arCtgry = this.getOwnerComponent().getModel("userModel").getProperty("/img/category");
+        //             arCtgry.forEach((oCnt)=>{
+        //                 oCnt.switchvisible = false;
+        //                 if(oCnt.switchstatus === true) {
+        //                     oCnt.ctgrystatus = true
+        //                 }else{
+        //                     oCnt.ctgrystatus = false
+        //                 }
+        //             });
+        //             this.getOwnerComponent().getModel("userModel").setProperty("/img/category",arCtgry);
+        //         }
+                oLUser = JSON.parse(JSON.stringify(arSUser[i]));
+                oLForm.userid = "";
+                oLForm.password = "";
 //			oSampModel.setData(oSampModel.getData());
-                oSampModel.setProperty("/loggedin", lUser);
-                let userMob = oSampModel.getProperty("/loggedin").mobile;
-                this.getOwnerComponent().getRouter().navTo("main",{userId: userMob});
-                this.getView().logInTile.setVisible(true);
-                this.getView().signUpTile.setVisible(true);
-                this.getView().logInGrid.setVisible(false);
+                oSampModel.setProperty("/loggedin", oLUser);
+                let userId = oSampModel.getProperty("/loggedin").userid;
+                this.getOwnerComponent().getRouter().navTo("main",{userId: userId});
+                this.getView().oLogInTile.setVisible(true);
+                this.getView().oSignUpTile.setVisible(true);
+                this.getView().oLogInGrid.setVisible(false);
                 break;
             }
         }
     },
-    signUpSbmtEvt() {
+    oSignUpSbmtEvt() {
         let oSampModel = this.getOwnerComponent().getModel("userModel");
-        let sUser = oSampModel.getProperty("/signedup");
-        let sForm = oSampModel.getProperty("/signupform");
-        let cart = oSampModel.getProperty("/cart");
-        let userCart = {};
-        sUser.push(JSON.parse(JSON.stringify(sForm)));
-        userCart.mobile = sForm.mobile;
-        userCart.email = sForm.email;
-        userCart.products = [];
-        cart.push(JSON.parse(JSON.stringify(userCart)));
-        sForm.fname = "";
-        sForm.lname = "";
-        sForm.dob = "";
-        sForm.email = "";
-        sForm.mobile = "";
-        sForm.password = "";
-        oSampModel.setProperty("/signupform", sForm);
-        this.getView().logInTile.setVisible(true);
-        this.getView().signUpTile.setVisible(true);
-        this.getView().signUpGrid.setVisible(false);
-        this.getView().logAndSignFBox.setVisible(true);
+        let arSUser = oSampModel.getProperty("/signedup");
+        let oSForm = oSampModel.getProperty("/signupform");
+        let arCart = oSampModel.getProperty("/cart");
+        let oUserCart = {};
+        oSForm.role="user";
+        arSUser.push(JSON.parse(JSON.stringify(oSForm)));
+        oUserCart.userid = oSForm.userid;
+        oUserCart.products = [];
+        arCart.push(JSON.parse(JSON.stringify(oUserCart)));
+        oSForm.fname = "";
+        oSForm.lname = "";
+        oSForm.gender = "";
+        oSForm.dob = "";
+        oSForm.email = "";
+        oSForm.mobile = "";
+        oSForm.userid = ""
+        oSForm.password = "";
+        oSampModel.setProperty("/signupform", oSForm);
+        this.getView().oLogInTile.setVisible(true);
+        this.getView().oSignUpTile.setVisible(true);
+        this.getView().oSignUpGrid.setVisible(false);
     },
-    logInCnclEvt() {
+    oLogInCnclEvt() {
         let oSampModel = this.getOwnerComponent().getModel("userModel");
-        let lForm = oSampModel.getProperty("/loginform");
-        lForm.username = "";
-        lForm.password = "";
-        oSampModel.setProperty("/loginform", lForm);
-        this.getView().logInTile.setVisible(true);
-        this.getView().signUpTile.setVisible(true);
-        this.getView().logInGrid.setVisible(false);
+        let oLForm = oSampModel.getProperty("/loginform");
+        oLForm.userid = "";
+        oLForm.password = "";
+        oSampModel.setProperty("/loginform", oLForm);
+        this.getView().oLogInTile.setVisible(true);
+        this.getView().oSignUpTile.setVisible(true);
+        this.getView().oLogInGrid.setVisible(false);
     }
     ,
-    signUpCnclEvt() {
+    oSignUpCnclEvt() {
         let oSampModel = this.getOwnerComponent().getModel("userModel");
-        let sForm = oSampModel.getProperty("/signupform");
-        sForm.fname = "";
-        sForm.lname = "";
-        sForm.dob = "";
-        sForm.email = "";
-        sForm.mobile = "";
-        sForm.password = "";
-        oSampModel.setProperty("/signupform", sForm);
-        this.getView().logInTile.setVisible(true);
-        this.getView().signUpTile.setVisible(true);
-        this.getView().signUpGrid.setVisible(false);
+        let oSForm = oSampModel.getProperty("/signupform");
+        oSForm.fname = "";
+        oSForm.lname = "";
+        oSForm.gender = "";
+        oSForm.dob = "";
+        oSForm.email = "";
+        oSForm.mobile = "";
+        oSForm.userid = "";
+        oSForm.password = "";
+        oSampModel.setProperty("/signupform", oSForm);
+        this.getView().oLogInTile.setVisible(true);
+        this.getView().oSignUpTile.setVisible(true);
+        this.getView().oSignUpGrid.setVisible(false);
     }
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

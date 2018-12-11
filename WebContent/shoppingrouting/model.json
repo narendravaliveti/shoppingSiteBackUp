@@ -3,95 +3,130 @@
     {
       "fname": "Narendra",
       "lname": "Valiveti",
+      "gender": "Male",
       "dob": "4/11/18",
       "email": "narendra1@gmail.com",
+      "role": "admin",
       "mobile": "9999",
+      "userid": "narendra9999",
       "password": "9999"
     },
     {
       "fname": "Nani",
       "lname": "Valiveti",
+      "gender": "Male",
       "dob": "4/11/18",
       "email": "narendra2@gmail.com",
+      "role": "user",
       "mobile": "8888",
+      "userid": "nani8888",
       "password": "8888"
     }
   ],
   "signupform": {
     "fname": "",
     "lname": "",
+    "gender": "",
     "dob": "",
     "email": "",
     "mobile": "",
+    "userid": "",
     "password": ""
   },
   "loggedin": {
     "fname": "",
     "lname": "",
+    "gender": "",
     "dob": "",
     "email": "",
+    "role": "",
     "mobile": "",
+    "userid": "",
     "password": ""
   },
   "loginform": {
-    "username": "",
+    "userid": "",
     "password": ""
   },
-  "profileList": {
-    "fname": "",
-    "lname": "",
-    "dob": "",
-    "email": "",
-    "mobile": ""
-  },
-  "bindpath": "",
+  "subcntbindpath": "",
+  "procntbindpath":"",
   "cart": [
     {
-      "mobile": "9999",
-      "email": "narendra1@gmail.com",
+      "userid": "narendra9999",
       "products": []
     },
     {
-      "mobile": "8888",
-      "email": "narendra2@gmail.com",
+      "userid": "nani8888",
       "products": []
     }
   ],
   "img": {
     "category": [
       {
-        "id": "Laptops",
-        "loc": "shoppingrouting/images/laptop.jpg",
+        "cid": "laptop",
+        "title": "Laptops",
+        "src": "https://www.freeiconspng.com/uploads/laptop-notebook-png-1.png",
+        "createdby": "",
+        "createdon": "",
+        "switchstatus": true,
         "items": [
           {
-            "id": "HP Laptop",
-            "loc": "shoppingrouting/images/laptop1.jpg",
+            "pid": "hp",
+            "title": "HP Laptop",
+            "src": "shoppingrouting/images/laptop1.jpg",
             "model": "Pavilion G6",
-            "price": "45000"
+            "price": "45000",
+            "width": "200px",
+            "owner": "Reliance",
+            "createdon": "",
+            "description": "4GB RAM, 500GB HardDisk, I7 Processor",
+            "switchstatus": true
           },
           {
-            "id": "Dell Laptop",
-            "loc": "shoppingrouting/images/laptop2.jpg",
+            "pid": "dell",
+            "title": "Dell Laptop",
+            "src": "shoppingrouting/images/laptop2.jpg",
             "model": "Inspiron 5559",
-            "price": "45000"
+            "price": "45000",
+            "width": "200px",
+            "owner": "Tech Computers",
+            "createdon": "",
+            "Description": "4GB RAM, 256GB HardDisk, I5 Processor",
+            "switchstatus": true
           }
         ]
       },
       {
-        "id": "Mobiles",
-        "loc": "shoppingrouting/images/mobile.jpg",
+        "cid": "mobile",
+        "title": "Mobiles",
+        "src": "shoppingrouting/images/mobile.jpg",
+        "createdby": "",
+        "createdon": "",
+        "switchstatus": true,
         "items": [
           {
-            "id": "Oppo",
-            "loc": "shoppingrouting/images/mobile1.jpg",
+            "pid": "oppo",
+            "title": "Oppo",
+            "src": "shoppingrouting/images/mobile1.jpg",
             "model": "F3 Plus",
-            "price": "17000"
+            "price": "17000",
+            "width": "200px",
+            "owner": "Oppo Services",
+            "createdon":"",
+            "Description": "6GB RAM, 64GB ROM, 4000MAH Battery",
+            "switchstatus": true
           },
           {
-            "id": "Samsung",
-            "loc": "shoppingrouting/images/mobile2.jpg",
+            "pid": "samsung",
+            "title": "Samsung",
+            "src": "shoppingrouting/images/mobile2.jpg",
             "model": "J7 Duo",
-            "price": "13000"
+            "price": "13000",
+            "width": "200px",
+            "owner": "Big C",
+            "createdon": "",
+            "Description": "4GB RAM, 32GB ROM, 3000MAH Battery",
+            "switchstatus": true
           }
         ]
       }

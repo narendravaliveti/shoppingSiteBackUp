@@ -1,125 +1,190 @@
 sap.ui.jsview("routing.shoppingrouting.mainContent", {
 
-	/** Specifies the Controller belonging to this View. 
-	* In the case that it is not implemented, or that "null" is returned, this View does not have a Controller.
-	* @memberOf shoppingrouting.mainContent
-	*/ 
-	getControllerName : function() {
+    /** Specifies the Controller belonging to this View.
+     * In the case that it is not implemented, or that "null" is returned, this View does not have a Controller.
+     * @memberOf shoppingrouting.mainContent
+     */
+    getControllerName: function () {
 
-		return "routing.shoppingrouting.mainContent";
-	},
+        return "routing.shoppingrouting.mainContent";
+    },
 
-	/** Is initially called once after the Controller has been instantiated. It is the place where the UI is constructed. 
-	* Since the Controller is given to this method, its event handlers can be attached right away. 
-	* @memberOf shoppingrouting.mainContent
-	*/ 
-	createContent : function(oController) {
+    /** Is initially called once after the Controller has been instantiated. It is the place where the UI is constructed.
+     * Since the Controller is given to this method, its event handlers can be attached right away.
+     * @memberOf shoppingrouting.mainContent
+     */
+    createContent: function (oController) {
         let oView = this;
-        this.menuBtnProfile = new sap.m.MenuItem({
+        this.oMenuBtnProfile = new sap.m.MenuItem({
             text: "Profile",
-            press: [oController.profileEvt, oController]
+            press: [oController.oProfileEvt, oController]
         });
-        this.menuBtnLogOut = new sap.m.MenuItem({
+        this.oMenuBtnLogOut = new sap.m.MenuItem({
             text: "LogOut",
-            press: [oController.logOutEvt, oController]
+            press: [oController.oLogOutEvt, oController]
         });
-        this.menuBtn = new sap.m.MenuButton({
+        this.oMenuBtn = new sap.m.MenuButton({
             icon: "sap-icon://customer",
             text:
                 "{userModel>/loggedin/fname} {userModel>/loggedin/lname}",
             menu:
                 new sap.m.Menu({
                     items: [
-                        this.menuBtnProfile,
-                        this.menuBtnLogOut
+                        this.oMenuBtnProfile,
+                        this.oMenuBtnLogOut
                     ]
                 })
         });
-        this.profileLogOut = new sap.m.Button({
+        this.oProfileLogOut = new sap.m.Button({
             text: "LogOut",
             width: "40%",
             type: sap.m.ButtonType.Reject,
-            press: [oController.logOutEvt, oController]
+            press: [oController.oLogOutEvt, oController]
         });
-        this.profileBack = new sap.m.Button({
+        this.oProfileBack = new sap.m.Button({
             text: "Back",
             width: "40%",
             type: sap.m.ButtonType.Back,
-            press: [oController.profileBackEvt, oController]
+            press: [oController.oProfileBackEvt, oController]
         });
-        this.profileList = new sap.m.List({
+        this.oProfileList = new sap.m.List({
             headerText: "Profile",
             visible: true,
             items: [
                 new sap.m.StandardListItem({
+                    title: "UserId",
+                    description: "{userModel>/loggedin/userid}"
+                }),
+                new sap.m.StandardListItem({
                     title: "Name",
                     description: {
-                        parts: ["userModel>/profileList/fname", "userModel>/profileList/lname"],
+                        parts: ["userModel>/loggedin/fname", "userModel>/loggedin/lname"],
                         formatter: (fname, lname) => {
                             return fname + " " + lname;
                         }
                     }
                 }),
                 new sap.m.StandardListItem({
+                    title: "Gender",
+                    description: "{userModel>/loggedin/gender}"
+                }),
+                new sap.m.StandardListItem({
                     title: "D.O.B",
-                    description: "{userModel>/profileList/dob}"
+                    description: "{userModel>/loggedin/dob}"
                 }),
                 new sap.m.StandardListItem({
                     title: "Email",
-                    description: "{userModel>/profileList/email}"
+                    description: "{userModel>/loggedin/email}"
                 }),
                 new sap.m.StandardListItem({
                     title: "Mobile",
-                    description: "{userModel>/profileList/mobile}"
+                    description: "{userModel>/loggedin/mobile}"
                 })
             ]
         }).addStyleClass("textAlignCenter");
-        this.profileGrid = new sap.ui.layout.Grid({
+        this.oProfileGrid = new sap.ui.layout.Grid({
             defaultSpan: "L12 M12 S12",
             position: sap.ui.layout.GridPosition.Center,
             width: "100%",
             content: [
-                this.profileList,
-                this.profileLogOut,
-                this.profileBack
+                this.oProfileList,
+                this.oProfileLogOut,
+                this.oProfileBack
             ]
         }).addStyleClass("textAlignCenter");
-        this.profileFBox = new sap.m.FlexBox({
+        this.oProfileFBox = new sap.m.FlexBox({
             visible: false,
             justifyContent: sap.m.FlexJustifyContent.Center,
             alignItems: sap.m.FlexAlignItems.Center,
             fitContainer: true,
             items: [
-                this.profileGrid
+                this.oProfileGrid
             ]
         });
-        this.cartBtn = new sap.m.Button({
+        this.oCartBtn = new sap.m.Button({
             icon: "sap-icon://cart",
-            press: [oController.crtBtnEvt, oController]
+            press: [oController.oCrtBtnEvt, oController]
         });
-        this.mainCntFBox = new sap.m.FlexBox({
+        this.oMainCntFBox = new sap.m.FlexBox({
             justifyContent: sap.m.FlexJustifyContent.Center,
             alignItems: sap.m.FlexAlignItems.Center,
+            renderType: sap.m.FlexRendertype.Bare,
             fitContainer: true,
             items: {
                 path: "userModel>/img/category",
                 factory: (sIdx, oContext) => {
-                    return new sap.m.GenericTile({
-                        header: "{userModel>id}",
-                        backgroundImage: "shoppingrouting/images/tile.jpg",
-                        tileContent: new sap.m.TileContent({
-                            content: [
-                                new sap.m.ImageContent({
-                                    src: "{userModel>loc}"
-                                })
-                            ]
-                        }),
-                        press: [oController.mainTileEvt, oController]
-                        // press: (oEvnt) => {
-                        //     var oBinding = oEvnt.getSource().getBinding("header").getContext();
-                        //     this.subCntFBox.bindElement(`userModel>${oBinding.getPath()}`);
-                        // }
-                    }).addStyleClass("sapUiSmallMarginEnd");
+                    // return new sap.m.GenericTile({
+                    //     header: "{userModel>title}",
+                    //     backgroundImage: "shoppingrouting/images/tile.jpg",
+                    //     tileContent: [
+                    //         new sap.m.TileContent({
+                    //             content: [
+                    //                 new sap.m.ImageContent({
+                    //                     src: "{userModel>src}"
+                    //                 })
+                    //             ]
+                    //         }),
+                    //     ],
+                    //     press: [oController.oMainTileEvt, oController]
+                    //     // press: (oEvnt) => {
+                    //     //     var oBinding = oEvnt.getSource().getBinding("header").getContext();
+                    //     //     this.subCntFBox.bindElement(`userModel>${oBinding.getPath()}`);
+                    //     // }
+                    // }).addStyleClass("sapUiSmallMarginEnd");
+                    return new sap.m.FlexBox({
+                        backgroundDesign: sap.m.BackgroundDesign.Solid,
+                        direction: sap.m.FlexDirection.Column,
+                        alignItems: sap.m.FlexAlignItems.Center,
+                        alignContent: sap.m.FlexAlignContent.Center,
+                        visible : {
+                            parts: ["userModel>/loggedin/role", "userModel>switchstatus"],
+                            formatter: (role, switchState) => {
+
+                                if( role === "admin"){
+                                    return true;
+                                }else if( role === "user"){
+                                    return switchState;
+                                }
+                            }
+                        },
+                        items: [
+                            new sap.m.Switch({
+                                state: "{userModel>switchstatus}",
+                                visible: {
+                                  path: "userModel>/loggedin/role",
+                                  formatter: (role) => {
+                                      if( role === "admin" ){
+                                          return true;
+                                      }else{
+                                          return false;
+                                      }
+                                  }
+                                }
+                            }),
+                            new sap.m.GenericTile({
+                                header: "{userModel>title}",
+                                backgroundImage: "shoppingrouting/images/tile.jpg",
+                                tileContent: new sap.m.TileContent({
+                                    content: [
+                                        new sap.m.ImageContent({
+                                            src: "{userModel>src}"
+                                        })
+                                    ]
+                                }),
+                                press: [oController.oMainTileEvt,oController]
+                            })
+                            // new sap.m.ObjectHeader({
+                            //     title: "{userModel>title}",
+                            //     backgroundDesign: sap.m.BackgroundDesign.Solid,
+                            //     responsive: true
+                            // }),
+                            // new sap.m.Image({
+                            //     src: "{userModel>src}",
+                            //     height: "250px",
+                            //     width: "250px"
+                            // })
+                        ]
+                    }).addStyleClass("sapUiSmallMargin")
                 }
 
             }
@@ -130,18 +195,18 @@ sap.ui.jsview("routing.shoppingrouting.mainContent", {
                     text: "My App"
                 })],
                 contentRight: [
-                    this.cartBtn
+                    this.oCartBtn
                 ]
             }),
             subHeader: new sap.m.Bar({
                 contentRight: [
-                    this.menuBtn
+                    this.oMenuBtn
                 ]
             }),
             content: [
-                this.profileFBox,
-                this.mainCntFBox
+                this.oProfileFBox,
+                this.oMainCntFBox
             ],
         });
-	},
+    },
 });

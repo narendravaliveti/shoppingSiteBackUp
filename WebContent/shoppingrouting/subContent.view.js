@@ -14,95 +14,103 @@ sap.ui.jsview("routing.shoppingrouting.subContent", {
      */
     createContent: function (oController) {
         let oView = this;
-        oView.NFormat = sap.ui.core.format.NumberFormat.getCurrencyInstance({maxFractionDigits: 2});
-        this.menuBtnProfile = new sap.m.MenuItem({
+        this.oNFormat = sap.ui.core.format.NumberFormat.getCurrencyInstance({maxFractionDigits: 2});
+        this.oMenuBtnProfile = new sap.m.MenuItem({
             text: "Profile",
-            press: [oController.profileEvt, oController]
+            press: [oController.oProfileEvt, oController]
         });
-        this.menuBtnLogOut = new sap.m.MenuItem({
+        this.oMenuBtnLogOut = new sap.m.MenuItem({
             text: "LogOut",
-            press: [oController.logOutEvt, oController]
+            press: [oController.oLogOutEvt, oController]
         });
-        this.menuBtn = new sap.m.MenuButton({
+        this.oMenuBtn = new sap.m.MenuButton({
             icon: "sap-icon://customer",
             text:
                 "{userModel>/loggedin/fname} {userModel>/loggedin/lname}",
             menu:
                 new sap.m.Menu({
                     items: [
-                        this.menuBtnProfile,
-                        this.menuBtnLogOut
+                        this.oMenuBtnProfile,
+                        this.oMenuBtnLogOut
                     ]
                 })
         });
-        this.profileLogOut = new sap.m.Button({
+        this.oProfileLogOut = new sap.m.Button({
             text: "LogOut",
             width: "40%",
             type: sap.m.ButtonType.Reject,
-            press: [oController.logOutEvt, oController]
+            press: [oController.oLogOutEvt, oController]
         });
-        this.profileBack = new sap.m.Button({
+        this.oProfileBack = new sap.m.Button({
             text: "Back",
             width: "40%",
             type: sap.m.ButtonType.Back,
-            press: [oController.profileBackEvt, oController]
+            press: [oController.oProfileBackEvt, oController]
         });
-        this.subCntBackBtn = new sap.m.Button({
+        this.oSubCntBackBtn = new sap.m.Button({
             text: "Back",
             type: sap.m.ButtonType.Back,
-            press: [oController.subCntBackEvt, oController]
+            press: [oController.oSubCntBackEvt, oController]
         });
-        this.profileList = new sap.m.List({
+        this.oProfileList = new sap.m.List({
             headerText: "Profile",
             visible: true,
             items: [
                 new sap.m.StandardListItem({
+                    title: "UserId",
+                    description: "{userModel>/loggedin/userid}"
+                }),
+                new sap.m.StandardListItem({
                     title: "Name",
                     description: {
-                        parts: ["userModel>/profileList/fname", "userModel>/profileList/lname"],
+                        parts: ["userModel>/loggedin/fname", "userModel>/loggedin/lname"],
                         formatter: (fname, lname) => {
                             return fname + " " + lname;
                         }
                     }
                 }),
                 new sap.m.StandardListItem({
+                    title: "Gender",
+                    description: "{userModel>/loggedin/gender}"
+                }),
+                new sap.m.StandardListItem({
                     title: "D.O.B",
-                    description: "{userModel>/profileList/dob}"
+                    description: "{userModel>/loggedin/dob}"
                 }),
                 new sap.m.StandardListItem({
                     title: "Email",
-                    description: "{userModel>/profileList/email}"
+                    description: "{userModel>/loggedin/email}"
                 }),
                 new sap.m.StandardListItem({
                     title: "Mobile",
-                    description: "{userModel>/profileList/mobile}"
+                    description: "{userModel>/loggedin/mobile}"
                 })
             ]
         }).addStyleClass("textAlignCenter");
-        this.profileGrid = new sap.ui.layout.Grid({
+        this.oProfileGrid = new sap.ui.layout.Grid({
             defaultSpan: "L12 M12 S12",
             position: sap.ui.layout.GridPosition.Center,
             width: "100%",
             content: [
-                this.profileList,
-                this.profileLogOut,
-                this.profileBack
+                this.oProfileList,
+                this.oProfileLogOut,
+                this.oProfileBack
             ]
         }).addStyleClass("textAlignCenter");
-        this.profileFBox = new sap.m.FlexBox({
+        this.oProfileFBox = new sap.m.FlexBox({
             visible: false,
             justifyContent: sap.m.FlexJustifyContent.Center,
             alignItems: sap.m.FlexAlignItems.Center,
             fitContainer: true,
             items: [
-                this.profileGrid
+                this.oProfileGrid
             ]
         });
-        this.cartBtn = new sap.m.Button({
+        this.oCartBtn = new sap.m.Button({
             icon: "sap-icon://cart",
-            press: [oController.crtBtnEvt, oController]
+            press: [oController.oCrtBtnEvt, oController]
         });
-        this.subCntFBox = new sap.ui.layout.Grid({
+        this.oSubCntFBox = new sap.ui.layout.Grid({
             content: {
                 path: "userModel>items",
                 factory: (sIdx, oContext) => {
@@ -112,14 +120,39 @@ sap.ui.jsview("routing.shoppingrouting.subContent", {
                         backgroundDesign: sap.m.BackgroundDesign.Translucent,
                         alignItems: sap.m.FlexAlignItems.Center,
                         direction: sap.m.FlexDirection.Column,
+                        visible : {
+                            parts: ["userModel>/loggedin/role", "userModel>switchstatus"],
+                            formatter: (role, switchState) => {
+
+                                if( role === "admin"){
+                                    return true;
+                                }else if( role === "user"){
+                                    return switchState;
+                                }
+                            }
+                        },
                         items: [
+                            new sap.m.Switch({
+                                state: "{userModel>switchstatus}",
+                                visible: {
+                                    path: "userModel>/loggedin/role",
+                                    formatter: (role) => {
+                                        if( role === "admin" ){
+                                            return true;
+                                        }else{
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }),
                             new sap.m.Image({
                                 height: "200px",
-                                width: "200px",
-                                src: "{userModel>loc}"
+                                width: "{userModel>width}",
+                                src: "{userModel>src}",
+                                press: [oController.oProImgEvt,oController]
                             }),
                             new sap.m.Title({
-                                text: "{userModel>id}"
+                                text: "{userModel>title}"
                             }),
                             new sap.m.DisplayListItem({
                                 label: "Model",
@@ -130,7 +163,7 @@ sap.ui.jsview("routing.shoppingrouting.subContent", {
                                 value: {
                                     path: "userModel>price",
                                     formatter: (sValue) => {
-                                        let val = oView.NFormat.format(sValue, oView.NFormat.oLocaleData.getCurrencySymbol("INR"));
+                                        let val = oView.oNFormat.format(sValue, oView.oNFormat.oLocaleData.getCurrencySymbol("INR"));
                                         return val;
                                     }
                                 }
@@ -138,7 +171,7 @@ sap.ui.jsview("routing.shoppingrouting.subContent", {
                             new sap.m.Button({
                                 text: "Add To Cart",
                                 type: sap.m.ButtonType.Emphasized,
-                                press: [oController.addCrtBtn, oController]
+                                press: [oController.oAddCrtBtn, oController]
                             })
                         ],
                         // press: (oEvnt) => {
@@ -157,20 +190,20 @@ sap.ui.jsview("routing.shoppingrouting.subContent", {
                     text: "My App"
                 })],
                 contentRight: [
-                    this.cartBtn
+                    this.oCartBtn
                 ]
             }),
             subHeader: new sap.m.Bar({
                 contentLeft: [
-                    this.subCntBackBtn
+                    this.oSubCntBackBtn
                 ],
                 contentRight: [
-                    this.menuBtn
+                    this.oMenuBtn
                 ]
             }),
             content: [
-                this.profileFBox,
-                this.subCntFBox
+                this.oProfileFBox,
+                this.oSubCntFBox
             ]
         });
     }
