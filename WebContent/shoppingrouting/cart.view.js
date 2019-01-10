@@ -14,7 +14,8 @@ sap.ui.jsview("routing.shoppingrouting.cart", {
      */
     createContent: function (oController) {
         let oView = this;
-        oView.oNFormat = sap.ui.core.format.NumberFormat.getCurrencyInstance({maxFractionDigits: 2});
+        debugger
+        // oView.oNFormat = sap.ui.core.format.NumberFormat.getCurrencyInstance({maxFractionDigits: 2});
         this.oMenuBtnProfile = new sap.m.MenuItem({
             text: "Profile",
             press: [oController.oProfileEvt, oController]
@@ -26,7 +27,7 @@ sap.ui.jsview("routing.shoppingrouting.cart", {
         this.oMenuBtn = new sap.m.MenuButton({
             icon: "sap-icon://customer",
             text:
-                "{userModel>/loggedin/fname} {userModel>/loggedin/lname}",
+                "{userModel>/loggedin/Fname} {userModel>/loggedin/Lname}",
             menu:
                 new sap.m.Menu({
                     items: [
@@ -59,7 +60,7 @@ sap.ui.jsview("routing.shoppingrouting.cart", {
                 new sap.m.StandardListItem({
                     title: "Name",
                     description: {
-                        parts: ["userModel>/profileList/fname", "userModel>/profileList/lname"],
+                        parts: ["userModel>/loggedin/Fname", "userModel>/loggedin/Lname"],
                         formatter: (fname, lname) => {
                             return fname + " " + lname;
                         }
@@ -67,15 +68,15 @@ sap.ui.jsview("routing.shoppingrouting.cart", {
                 }),
                 new sap.m.StandardListItem({
                     title: "D.O.B",
-                    description: "{userModel>/profileList/dob}"
+                    description: "{userModel>/loggedin/BirthDate}"
                 }),
                 new sap.m.StandardListItem({
                     title: "Email",
-                    description: "{userModel>/profileList/email}"
+                    description: "{userModel>/loggedin/Email}"
                 }),
                 new sap.m.StandardListItem({
                     title: "Mobile",
-                    description: "{userModel>/profileList/mobile}"
+                    description: "{userModel>/loggedin/Mobile}"
                 })
             ]
         }).addStyleClass("textAlignCenter");
@@ -100,7 +101,7 @@ sap.ui.jsview("routing.shoppingrouting.cart", {
         });
         this.oCrtCntFBox = new sap.ui.layout.Grid({
             content: {
-                path: "userModel>products",
+                path: "userModel>/Cart",
                 factory: (sIdx, oContext) => {
                     return new sap.m.FlexBox({
                         height: "380px",
@@ -109,33 +110,34 @@ sap.ui.jsview("routing.shoppingrouting.cart", {
                         alignItems: sap.m.FlexAlignItems.Center,
                         direction: sap.m.FlexDirection.Column,
                         visible: {
-                            path: "userModel>switchstatus",
+                            path: "userModel>Status",
                             formatter: (switchState) => {
-                                return switchState;
+                                return true;
                             }
                         },
                         items: [
                             new sap.m.Image({
                                 height: "200px",
-                                width: "{userModel>width}",
-                                src: "{userModel>src}"
+                                width: "200px",
+                                src: "{userModel>ImgSrc}"
                             }),
                             new sap.m.Title({
-                                text: "{userModel>title}"
+                                text: "{userModel>Title}"
                             }),
                             new sap.m.DisplayListItem({
                                 label: "Model",
-                                value: "{userModel>model}"
+                                value: "{userModel>Model}"
                             }),
                             new sap.m.DisplayListItem({
                                 label: "Price",
-                                value: {
-                                    path: "userModel>price",
-                                    formatter: (sValue) => {
-                                        let val = oView.oNFormat.format(sValue, oView.oNFormat.oLocaleData.getCurrencySymbol("INR"));
-                                        return val;
-                                    }
-                                }
+                                value: "{userModel>Price}"
+                                // value: {
+                                //     path: "userModel>Price",
+                                //     formatter: (sValue) => {
+                                //         let val = oView.oNFormat.format(sValue, oView.oNFormat.oLocaleData.getCurrencySymbol("INR"));
+                                //         return val;
+                                //     }
+                                // }
                             })
                         ]
                     })
@@ -150,7 +152,7 @@ sap.ui.jsview("routing.shoppingrouting.cart", {
                 ],
                 contentMiddle: [
                     new sap.m.Title({
-                        text: "{userModel>/loggedin/fname} {userModel>/loggedin/lname}"
+                        text: "{userModel>/loggedin/Fname} {userModel>/loggedin/Lname}"
                     })
                 ],
                 contentRight: [

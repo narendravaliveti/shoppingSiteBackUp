@@ -82,43 +82,43 @@ sap.ui.jsview("routing.shoppingrouting.confirmation", {
                         new sap.m.Input({
                             placeholder: "FirstName",
                             textAlign: sap.ui.core.TextAlign.Center,
-                            value: "{userModel>/signupform/fname}",
+                            value: "{userModel>/signupform/Fname}",
                         }),
                         new sap.m.Input({
                             placeholder: "LastName",
                             textAlign: sap.ui.core.TextAlign.Center,
-                            value: "{userModel>/signupform/lname}",
+                            value: "{userModel>/signupform/Lname}",
                         }),
                         new sap.m.Input({
                             placeholder: "Gender",
                             textAlign: sap.ui.core.TextAlign.Center,
-                            value: "{userModel>/signupform/gender}",
+                            value: "{userModel>/signupform/Gender}",
                         }),
                         new sap.m.DatePicker({
                             placeholder: "Date Of Birth",
                             textAlign: sap.ui.core.TextAlign.Center,
-                            value: "{userModel>/signupform/dob}"
+                            value: "{userModel>/signupform/BirthDate}"
                         }),
                         new sap.m.Input({
                             placeholder: "Email",
                             textAlign: sap.ui.core.TextAlign.Center,
-                            value: "{userModel>/signupform/email}"
+                            value: "{userModel>/signupform/Email}"
                         }),
                         new sap.m.Input({
                             placeholder: "Mobile",
                             textAlign: sap.ui.core.TextAlign.Center,
-                            value: "{userModel>/signupform/mobile}",
+                            value: "{userModel>/signupform/Mobile}",
                             type: sap.m.InputType.Number
                         }),
                         new sap.m.Input({
                             placeholder: "UserId",
                             textAlign: sap.ui.core.TextAlign.Center,
-                            value: "{userModel>/signupform/userid}",
+                            value: "{userModel>/signupform/UserId}",
                         }),
                         new sap.m.Input({
                             placeholder: "Password",
                             textAlign: sap.ui.core.TextAlign.Center,
-                            value: "{userModel>/signupform/password}",
+                            value: "{userModel>/signupform/Password}",
                             type: sap.m.InputType.Password
                         }),
                         new sap.m.Button({

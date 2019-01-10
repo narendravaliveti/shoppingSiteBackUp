@@ -10,16 +10,23 @@ sap.ui.controller("routing.shoppingrouting.cart", {
     oRouter.attachRouteMatched("cart", (oEvnt) => {
         if (oEvnt.getParameter("name") === "cart") {
             let oSampModel = this.getOwnerComponent().getModel("userModel");
-            let arCart = oSampModel.getProperty("/cart");
             let oLUser = oSampModel.getProperty("/loggedin");
-            for(let i=0;i<arCart.length;i++){
-                if(oLUser.userid !== "" && oLUser.userid === arCart[i].userid){
-                    let bindpath = "userModel>/cart/"+i;
-                    if (bindpath) {
-                        this.getView().oCrtCntFBox.bindElement(bindpath);
-                    }
-                }
-            }
+            let oArguments = oEvnt.getParameter("arguments");
+            let oOptions = {
+                "IvUserid": oArguments.userId
+            };
+            if( oLUser.UserId === undefined ) {
+                this.getOwnerComponent().callServer(oOptions, "Z03_API_LOGIN_SUCCESS").then((oResponse) => {
+                    oSampModel.setProperty("/loggedin", oResponse.EsUser);
+                    oSampModel.setProperty("/category", oResponse.EtCtgry);
+                    debugger;
+                });
+            };
+            this.getOwnerComponent().callServer(oOptions, "Z03_API_GET_CART").then((oResponse) => {
+                let oSampModel = this.getOwnerComponent().getModel("userModel");
+                oSampModel.setProperty("/Cart", oResponse.EtPrdts);
+                debugger;
+            });
             this.getView().oProfileFBox.setVisible(false);
             this.getView().oCrtCntFBox.setVisible(true);
         }
@@ -53,7 +60,7 @@ sap.ui.controller("routing.shoppingrouting.cart", {
     },
     oCrtCntBackEvt() {
         let oSampModel = this.getOwnerComponent().getModel("userModel");
-        let userId = oSampModel.getProperty("/loggedin").userid;
+        let userId = oSampModel.getProperty("/loggedin").UserId;
         this.getOwnerComponent().getRouter().navTo("main",{userId: userId});
     },
 /**

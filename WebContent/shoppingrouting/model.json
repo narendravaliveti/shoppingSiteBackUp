@@ -1,48 +1,16 @@
 {
-  "signedup": [
-    {
-      "fname": "Narendra",
-      "lname": "Valiveti",
-      "gender": "Male",
-      "dob": "4/11/18",
-      "email": "narendra1@gmail.com",
-      "role": "admin",
-      "mobile": "9999",
-      "userid": "narendra9999",
-      "password": "9999"
-    },
-    {
-      "fname": "Nani",
-      "lname": "Valiveti",
-      "gender": "Male",
-      "dob": "4/11/18",
-      "email": "narendra2@gmail.com",
-      "role": "user",
-      "mobile": "8888",
-      "userid": "nani8888",
-      "password": "8888"
-    }
-  ],
   "signupform": {
-    "fname": "",
-    "lname": "",
-    "gender": "",
-    "dob": "",
-    "email": "",
-    "mobile": "",
-    "userid": "",
-    "password": ""
+    "UserId": "6666",
+    "Fname": "dsd",
+    "Lname": "sd",
+    "Gender": "dsd",
+    "BirthDate": "dsds",
+    "Mobile": "6666666666",
+    "Email": "sdsd",
+    "Role": "",
+    "Password": "6666"
   },
   "loggedin": {
-    "fname": "",
-    "lname": "",
-    "gender": "",
-    "dob": "",
-    "email": "",
-    "role": "",
-    "mobile": "",
-    "userid": "",
-    "password": ""
   },
   "loginform": {
     "userid": "",
@@ -50,86 +18,87 @@
   },
   "subcntbindpath": "",
   "procntbindpath":"",
-  "cart": [
-    {
-      "userid": "narendra9999",
-      "products": []
-    },
-    {
-      "userid": "nani8888",
-      "products": []
-    }
+  "Admin": {
+    "Ctgry": true,
+    "Prdts": false
+  },
+  "Parameters": {
+    "UserId": "",
+    "CtgryId": "",
+    "ProductId": ""
+  },
+  "category": [
+
   ],
-  "img": {
-    "category": [
-      {
-        "cid": "laptop",
-        "title": "Laptops",
-        "src": "https://www.freeiconspng.com/uploads/laptop-notebook-png-1.png",
-        "createdby": "",
-        "createdon": "",
-        "switchstatus": true,
-        "items": [
-          {
-            "pid": "hp",
-            "title": "HP Laptop",
-            "src": "shoppingrouting/images/laptop1.jpg",
-            "model": "Pavilion G6",
-            "price": "45000",
-            "width": "200px",
-            "owner": "Reliance",
-            "createdon": "",
-            "description": "4GB RAM, 500GB HardDisk, I7 Processor",
-            "switchstatus": true
-          },
-          {
-            "pid": "dell",
-            "title": "Dell Laptop",
-            "src": "shoppingrouting/images/laptop2.jpg",
-            "model": "Inspiron 5559",
-            "price": "45000",
-            "width": "200px",
-            "owner": "Tech Computers",
-            "createdon": "",
-            "Description": "4GB RAM, 256GB HardDisk, I5 Processor",
-            "switchstatus": true
-          }
-        ]
-      },
-      {
-        "cid": "mobile",
-        "title": "Mobiles",
-        "src": "shoppingrouting/images/mobile.jpg",
-        "createdby": "",
-        "createdon": "",
-        "switchstatus": true,
-        "items": [
-          {
-            "pid": "oppo",
-            "title": "Oppo",
-            "src": "shoppingrouting/images/mobile1.jpg",
-            "model": "F3 Plus",
-            "price": "17000",
-            "width": "200px",
-            "owner": "Oppo Services",
-            "createdon":"",
-            "Description": "6GB RAM, 64GB ROM, 4000MAH Battery",
-            "switchstatus": true
-          },
-          {
-            "pid": "samsung",
-            "title": "Samsung",
-            "src": "shoppingrouting/images/mobile2.jpg",
-            "model": "J7 Duo",
-            "price": "13000",
-            "width": "200px",
-            "owner": "Big C",
-            "createdon": "",
-            "Description": "4GB RAM, 32GB ROM, 3000MAH Battery",
-            "switchstatus": true
-          }
-        ]
-      }
-    ]
+  "CategoryForm": {
+    "CtgryId": "",
+    "Title": "",
+    "ImgSrc": "",
+    "CreatedBy": "",
+    "CreatedOn": "",
+    "Status": true,
+    "Updkz": "I"
+  },
+  "Products":[
+
+  ],
+  "ProductForm": {
+    "ProductId": "",
+    "CtgryId": "",
+    "Title": "",
+    "Model": "",
+    "ImgSrc": "shoppingrouting/images/upload.png",
+    "Price": "",
+    "Unit": "INR",
+    "Owner": "",
+    "CreatedOn": "",
+    "Status": true,
+    "Updkz": "I"
+  },
+  "Specifications":[
+
+  ],
+  "SpecificationForm": {
+    "ProductId": "",
+    "SpecId": "",
+    "Name": "",
+    "Value": "",
+    "Updkz": "I"
+  },
+  "SpecificationsTable": [
+    {},
+    {},
+    {},
+    {},
+    {}
+  ],
+  "SpecSuggTable": [
+    {},
+    {}
+  ],
+  "Cart": [],
+  "ImgSrc": {},
+  "SpecTabCols":[
+    {"key":"SpecId","value":"SpecId"},
+    {"key":"SpecName","value":"SpecName"},
+    {"key": "","value":""}
+  ],
+  "SpecSuggTabCols": [
+    {"key":"SpecSuggId","value":"SpecSuggId"},
+    {"key":"SpecSugg","value":"SpecSugg"}
+  ],
+  "Carousel": [
+    {"ImgSrc": "shoppingrouting/images/slide1.jpg"},
+    {"ImgSrc": "shoppingrouting/images/slide2.jpg"},
+    {"ImgSrc": "shoppingrouting/images/slide3.jpg"},
+    {"ImgSrc": "shoppingrouting/images/slide4.jpg"}
+  ],
+  "Visible": {
+    "MainCnt": "X",
+    "CtgryList": "",
+    "AddCtgryPanel": ""
+  },
+  "MainCnt": {
+    "DefaultSpan": "L3 M12 S12"
   }
 }
